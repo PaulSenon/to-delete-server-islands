@@ -3,6 +3,8 @@ let p = new Promise((resolve) => setTimeout(resolve, 400));
 await p;
 const roomsRemaining = 1 + Math.ceil(Math.random() * 8);
 const { requestId } = Astro.locals;
+//@ts-ignore
+const { toto } = Astro.locals.netlify.context;
 const { city } = Astro.locals.netlify.context.geo;
 ---
 
@@ -12,4 +14,5 @@ const { city } = Astro.locals.netlify.context.geo;
   Just <strong class="font-bold text-teal-300">{roomsRemaining} rooms</strong> left!
   req id: {requestId}
   city: {city}
+  toto: {toto}
 </p>

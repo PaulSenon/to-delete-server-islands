@@ -6,6 +6,8 @@ export const onRequest = defineMiddleware(async ({ locals, request }, next) => {
   
   // Add the random value to locals so it's accessible in components
   locals.requestId = Math.random()*1000;
+  //@ts-ignore
+  locals.netlify.context.toto = Math.random()*1000;
   
   // Get the response from the next handler
   const response = await next();
