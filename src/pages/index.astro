@@ -11,6 +11,11 @@ import CartCount from "../components/CartCount.astro";
 
 const title = "Astro Server Islands";
 const description = "A demo of Astro with Server Islands.";
+
+Astro.response.headers.set(
+  "CDN-Cache-Control",
+  "public, max-age=300, s-maxage=3600"
+);
 ---
 
 <html lang="en" class="[color-scheme:dark]">
@@ -126,7 +131,10 @@ const description = "A demo of Astro with Server Islands.";
             Try refreshing the page to restart the demo.
           </p>
           <p class="text-gray-400">
-            This demo is inspired by the Next.js <a href="https://www.partialprerendering.com/">Partial Prerendering</a> demo.
+            This demo is inspired by the Next.js <a
+              href="https://www.partialprerendering.com/"
+              >Partial Prerendering</a
+            > demo.
           </p>
         </div>
       </div>
