@@ -1,11 +1,12 @@
 import { defineMiddleware } from "astro/middleware";
 
-export const onRequest = defineMiddleware(async ({ locals, request }, next) => {
+export const onRequest = defineMiddleware(async (context, next) => {
+    console.log('received context from middleware', context);
     // Generate a random value
     const randomValue = Math.random().toString(36).substring(2, 15);
     
     // Add the random value to locals so it's accessible in components
-    locals.requestId = Math.random()*1000;
+    context.locals.requestId = Math.random()*1000;
     
     // Get the response from the next handler
     const response = await next();
@@ -17,6 +18,6 @@ export const onRequest = defineMiddleware(async ({ locals, request }, next) => {
     // Add our custom header
     newResponse.headers.set('X-Random-Value', randomValue);
     
-    console.log('locals from custom middleware', locals);
+    console.log('locals from custom middleware', context.locals);
     return newResponse;
 }) 
