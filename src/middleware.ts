@@ -1,7 +1,7 @@
 import { defineMiddleware } from "astro/middleware";
 
 export const onRequest = defineMiddleware(async (context, next) => {
-    console.log('received context from middleware', context);
+    console.trace('received context from middleware', context.locals);
     // Generate a random value
     const randomValue = Math.random().toString(36).substring(2, 15);
     
