@@ -1,7 +1,6 @@
 import { defineMiddleware } from "astro/middleware";
 
 export const onRequest = defineMiddleware(async ({ locals, request }, next) => {
-    console.log(locals);
     // Generate a random value
     const randomValue = Math.random().toString(36).substring(2, 15);
     
@@ -18,5 +17,6 @@ export const onRequest = defineMiddleware(async ({ locals, request }, next) => {
     // Add our custom header
     newResponse.headers.set('X-Random-Value', randomValue);
     
+    console.log('locals from custom middleware', locals);
     return newResponse;
 }) 

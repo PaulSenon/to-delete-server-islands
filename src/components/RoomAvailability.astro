@@ -4,6 +4,8 @@ await p;
 const roomsRemaining = 1 + Math.ceil(Math.random() * 8);
 const { requestId } = Astro.locals;
 const { city } = Astro.locals.netlify.context.geo;
+
+console.log("locals from custom server island", Astro.locals);
 ---
 
 <p
