@@ -28,10 +28,5 @@
     "astro": "5.0.5",
     "sharp": "^0.33.3"
   },
-  "packageManager": "pnpm@9.5.0",
-  "pnpm": {
-    "patchedDependencies": {
-      "@astrojs/netlify@6.0.0": "patches/@astrojs__netlify@6.0.0.patch"
-    }
-  }
+  "packageManager": "pnpm@9.5.0"
 }
