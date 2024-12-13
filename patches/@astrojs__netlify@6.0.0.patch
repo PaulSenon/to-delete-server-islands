@@ -1,32 +1,75 @@
 diff --git a/dist/index.js b/dist/index.js
-index ba566d95956789a83721f4b36796325c603a7923..23659a00e19348f169eae505d12c930171d4bde4 100644
+index ba566d95956789a83721f4b36796325c603a7923..8480ddae59d24dad304202a14ec859526b8a85b7 100644
 --- a/dist/index.js
 +++ b/dist/index.js
-@@ -175,7 +175,10 @@ export default function netlifyIntegration(integrationConfig) {
- 					request,
- 					params: {}
- 				});
+@@ -171,38 +171,43 @@ export default function netlifyIntegration(integrationConfig) {
+ 			import { createContext, trySerializeLocals } from 'astro/middleware';
+ 
+ 			export default async (request, context) => {
+-				const ctx = createContext({
+-					request,
+-					params: {}
+-				});
 -				ctx.locals = { netlify: { context } }
-+				if (typeof ctx.locals !== 'object') {
-+					ctx.locals = { netlify: {} };
-+				}
-+				ctx.locals.netlify = { context }; 
- 				// https://docs.netlify.com/edge-functions/api/#return-a-rewrite
- 				ctx.rewrite = (target) => {
- 					if(target instanceof Request) {
-@@ -196,12 +199,14 @@ export default function netlifyIntegration(integrationConfig) {
- 					return new URL(target, request.url);
- 				};
+-				// https://docs.netlify.com/edge-functions/api/#return-a-rewrite
+-				ctx.rewrite = (target) => {
+-					if(target instanceof Request) {
+-						// We can only mutate headers, so if anything else is different, we need to fetch
+-						// the target URL instead.
+-						if(target.method !== request.method || target.body || target.url.origin !== request.url.origin) {
+-							return fetch(target);
+-						}
+-						// We can't replace the headers object, so we need to delete all headers and set them again
+-						request.headers.forEach((_value, key) => {
+-							request.headers.delete(key);
+-						});
+-						target.headers.forEach((value, key) => {
+-							request.headers.set(key, value);
+-						});
+-						return new URL(target.url);
+-					}
+-					return new URL(target, request.url);
+-				};
++			//	const ctx = createContext({
++			//		request,
++			//		params: {}
++			//	});
++			//	if (typeof ctx.locals !== 'object') {
++			//		ctx.locals = { netlify: {} };
++			//	}
++			//	ctx.locals.netlify = { context }; 
++			//	// https://docs.netlify.com/edge-functions/api/#return-a-rewrite
++			//	ctx.rewrite = (target) => {
++			//		if(target instanceof Request) {
++			//			// We can only mutate headers, so if anything else is different, we need to fetch
++			//			// the target URL instead.
++			//			if(target.method !== request.method || target.body || target.url.origin !== request.url.origin) {
++			//				return fetch(target);
++			//			}
++			//			// We can't replace the headers object, so we need to delete all headers and set them again
++			//			request.headers.forEach((_value, key) => {
++			//				request.headers.delete(key);
++			//			});
++			//			target.headers.forEach((value, key) => {
++			//				request.headers.set(key, value);
++			//			});
++			//			return new URL(target.url);
++			//		}
++			//		return new URL(target, request.url);
++			//	};
  				const next = () => {
-+					console.log('netlify-edge-next-ctx', ctx.locals);
+-					const { netlify, ...otherLocals } = ctx.locals;
++			//		console.log('netlify-edge-next-ctx', ctx.locals);
 +					console.log('netlify-edge-next-context', context.locals);
- 					const { netlify, ...otherLocals } = ctx.locals;
++					const { netlify, ...otherLocals } = context.locals;
  					request.headers.set("x-astro-locals", trySerializeLocals(otherLocals));
  					request.headers.set("x-astro-middleware-secret", "${middlewareSecret}");
  					return context.next();
  				};
 -
-+				console.log('netlify-execute-custom-middleware', ctx.locals)
- 				return onRequest(ctx, next);
+-				return onRequest(ctx, next);
++				console.log('netlify-execute-custom-middleware', context.locals)
++				return onRequest(context, next);
  			}
  
+ 			export const config = {

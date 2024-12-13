@@ -2,7 +2,7 @@
 let p = new Promise((resolve) => setTimeout(resolve, 400));
 await p;
 const roomsRemaining = 1 + Math.ceil(Math.random() * 8);
-const { requestId } = Astro.locals;
+const { toto } = Astro.locals;
 const { city } = Astro.locals.netlify.context.geo;
 
 console.log("locals from custom server island", Astro.locals);
@@ -12,6 +12,6 @@ console.log("locals from custom server island", Astro.locals);
   class="text-white bg-gradient-to-tl from-teal-950/40 to-teal-600/40 border border-teal-600 rounded-lg text-center p-1"
 >
   Just <strong class="font-bold text-teal-300">{roomsRemaining} rooms</strong> left!
-  req id: {requestId}
+  toto: {toto}
   city: {city}
 </p>

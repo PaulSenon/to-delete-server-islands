@@ -6,7 +6,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
     const randomValue = Math.random().toString(36).substring(2, 15);
     
     // Add the random value to locals so it's accessible in components
-    context.locals.requestId = Math.random()*1000;
+    context.locals.toto = Math.random()*1000;
     
     // Get the response from the next handler
     const response = await next();
