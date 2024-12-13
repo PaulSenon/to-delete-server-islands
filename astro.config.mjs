@@ -13,7 +13,9 @@ const NETLIFY_DEPLOY_URL =
 export default defineConfig({
 	site: NETLIFY_DEPLOY_URL || 'https://localhost:4321',
 	output: 'static',
-	adapter: netlify(),
+	adapter: netlify({
+		cacheOnDemandPages: true,
+	}),
 	integrations: [
 		react(),
 		tailwind({ applyBaseStyles: true })
