@@ -15,6 +15,7 @@ export default defineConfig({
 	output: 'static',
 	adapter: netlify({
 		cacheOnDemandPages: true,
+		// edgeMiddleware: true,
 	}),
 	integrations: [
 		react(),
