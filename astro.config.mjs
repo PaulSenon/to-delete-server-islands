@@ -12,9 +12,9 @@ const NETLIFY_DEPLOY_URL =
 // https://astro.build/config
 export default defineConfig({
 	site: NETLIFY_DEPLOY_URL || 'https://localhost:4321',
-	output: 'server',
+	output: 'static',
 	adapter: netlify({
-		edgeMiddleware: true,
+		edgeMiddleware: false,
 	}),
 	integrations: [
 		react(),

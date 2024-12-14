@@ -1,0 +1,25 @@
+---
+export const prerender = false;
+// delay 500 ms to make it obvious it's server rendered
+await new Promise((resolve) => setTimeout(resolve, 500));
+
+// extract one value from custom middleware
+const { toto } = Astro.locals;
+// extract one value from astro default middleware
+const { requestId } = Astro.locals.netlify.context;
+---
+
+<div>
+  <p>
+    This component is server rendered and the two following value should change
+    for each refresh
+  </p>
+  <p>
+    Here is one dynamic value from custom astro middleware: <strong
+      >{toto}</strong>
+  </p>
+  <p>
+    Here is one dynamic value from default netlify middleware: <strong
+      >{requestId}</strong>
+  </p>
+</div>
