@@ -14,7 +14,7 @@ export default defineConfig({
 	site: NETLIFY_DEPLOY_URL || 'https://localhost:4321',
 	output: 'static',
 	adapter: netlify({
-		edgeMiddleware: false,
+		edgeMiddleware: true,
 	}),
 	integrations: [
 		react(),
