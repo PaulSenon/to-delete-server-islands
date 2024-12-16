@@ -1,0 +1,13 @@
+diff --git a/dist/index.js b/dist/index.js
+index ba566d95956789a83721f4b36796325c603a7923..396999341a2f6f98a4404c0b033434f0378e3595 100644
+--- a/dist/index.js
++++ b/dist/index.js
+@@ -175,7 +175,7 @@ export default function netlifyIntegration(integrationConfig) {
+ 					request,
+ 					params: {}
+ 				});
+-				ctx.locals = { netlify: { context } }
++				ctx.locals.netlify = { context }; 
+ 				// https://docs.netlify.com/edge-functions/api/#return-a-rewrite
+ 				ctx.rewrite = (target) => {
+ 					if(target instanceof Request) {
